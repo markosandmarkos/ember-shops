@@ -1,0 +1,64 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">{{#link-to 'shops'}}Shops{{/link-to}}</li>
+    <li class="breadcrumb-item active">{{model.name}}</li>
+  </ol>
+</nav>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th class="text-center">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  {{#each model.product as |products|}}
+    {{products-listening
+      product=products
+      openEditModal=(action 'openActionsModal' 'update' 'Edit Product' products)
+      openDeleteModal=(action 'openActionsModal' 'delete' 'Delete Product' products)
+    }}
+  {{/each}}
+  </tbody>
+  <tfoot>
+  <tr>
+    <th></th>
+    <th></th>
+    <th class="text-info">{{model.totalPrice}}</th>
+    <th></th>
+  </tr>
+  </tfoot>
+</table>
+
+{{#bs-button type="success" class="pull-right" onClick=(action 'openActionsModal' 'create' 'Add New Product')}}
+  {{fa-icon "plus" class="mt-1"}}
+{{/bs-button}}
+
+{{#actions-modal
+  onHidden=(action (mut actionsModal) false)
+  open=actionsModal
+  submit=(action "submit" actionType)
+  title=actionsModalTitle
+  isDelete=isDelete
+  isNotValid=isNotValid
+}}
+  <div class="form-group">
+    <label for="name">Name</label>
+    {{input keyUp=(action (mut isNotValid) false) id="name" class="form-control" value=name autofocus="true"}}
+  </div>
+  <div class="form-group">
+    <label for="quantity">Quantity</label>
+    {{input keyUp=(action (mut isNotValid) false) type="number" id="quantity" class="form-control"
+            value=quantity}}
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    {{input keyUp=(action (mut isNotValid) false) type="number" id="price" class="form-control" value=price}}
+  </div>
+{{/actions-modal}}
+
+{{outlet}}

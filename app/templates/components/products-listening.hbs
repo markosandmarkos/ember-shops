@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    {{product.name}}
+  </td>
+  <td>
+    {{product.quantity}}
+  </td>
+  <td>
+    {{product.price}}
+  </td>
+  <td class="text-center">
+    {{#bs-button class="btn btn-sm btn-outline-secondary" onClick=openEditModal}}{{fa-icon "pencil"}}{{/bs-button}}
+    {{#bs-button class="btn btn-sm btn-outline-danger" onClick=openDeleteModal}}{{fa-icon "trash"}}{{/bs-button}}
+  </td>
+</tr>

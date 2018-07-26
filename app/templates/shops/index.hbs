@@ -1,0 +1,41 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item text-muted">Shops</li>
+  </ol>
+</nav>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th class="text-center">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each model as |shops|}}
+    {{shops-listening
+      shop=shops
+      openEditModal=(action 'openActionsModal' 'update' 'Edit Shop' shops)
+      openDeleteModal=(action 'openActionsModal' 'delete' 'Delete Shop' shops)
+    }}
+  {{/each}}
+  </tbody>
+</table>
+
+{{#bs-button type="success" class="pull-right" onClick=(action 'openActionsModal' 'create' 'Add New Shop')}}{{fa-icon
+  "plus" class="mt-1"}}{{/bs-button}}
+
+{{#actions-modal
+  onHidden=(action (mut actionsModal) false)
+  open=actionsModal
+  submit=(action "submit" actionType)
+  title=actionsModalTitle
+  isDelete=isDelete
+  isNotValid=isNotValid
+}}
+  <div class="form-group">
+    <label for="name">Name</label>
+    {{input keyUp=(action (mut isNotValid) false) id="name" class="form-control" value=name autofocus="true"
+            required="true"}}
+  </div>
+{{/actions-modal}}

@@ -1,0 +1,27 @@
+{{#bs-modal open=open onHidden=onHidden as |modal|}}
+  {{#modal.header}}
+    <span class="modal-title">
+      {{title}}
+    </span>
+  {{/modal.header}}
+  {{#modal.body}}
+    <div class="form-group">
+      {{#if isDelete}}
+        <span><b>{{fa-icon "exclamation-triangle"}} Warning!</b> Do you want to permanently delete this record ?</span>
+      {{else}}
+
+        {{yield}}
+
+      {{/if}}
+      {{#if isNotValid}}
+        <div class="alert alert-danger" role="alert">
+          <b>{{fa-icon "exclamation-triangle"}} OOPS!</b> Please fix any missing information
+        </div>
+      {{/if}}
+    </div>
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close)}}{{fa-icon "times"}}{{/bs-button}}
+    {{#bs-button type="success" onClick=submit}}{{fa-icon "check"}}{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

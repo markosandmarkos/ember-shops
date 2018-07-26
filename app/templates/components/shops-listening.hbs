@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    {{#link-to "shops.products" shop class=shop.id}}
+      {{shop.name}}
+    {{/link-to}}
+  </td>
+  <td class="text-center">
+    {{#bs-button class="btn btn-sm btn-outline-secondary" onClick=openEditModal}}{{fa-icon "pencil"}}{{/bs-button}}
+    {{#bs-button class="btn btn-sm btn-outline-danger" onClick=openDeleteModal}}{{fa-icon "trash"}}{{/bs-button}}
+  </td>
+</tr>
